@@ -1,0 +1,8 @@
+📦 requirements.txt
+nginx
+Copy
+Edit
+Flask
+Flask-WTF
+Flask-SQLAlchemy
+email-validator
