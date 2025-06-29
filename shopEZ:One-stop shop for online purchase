@@ -1,0 +1,22 @@
+📁 Project Structureshopez/
+│
+├── app/                        # Flask backend
+│   ├── __init__.py             # Initialize Flask app
+│   ├── routes.py               # All routes and logic
+│   ├── models.py               # Database models (SQLAlchemy classes)
+│   ├── forms.py                # User input forms
+│   └── static/                 # Static assets (CSS, JS, images)
+│       ├── css/
+│       └── js/
+│
+├── templates/                  # HTML templates (Jinja2)
+│   ├── index.html
+│   ├── product.html
+│   ├── cart.html
+│   └── login.html
+│
+├── database.db                 # SQLite database (or use PostgreSQL/MySQL)
+├── run.py                      # Entry point
+└── requirements.txt            # Dependencies
+
+
