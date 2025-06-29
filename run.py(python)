@@ -1,0 +1,17 @@
+⚙️ run.py (App Entry)
+python
+Copy
+Edit
+from app import db, app as application
+from app.routes import app as main_routes
+
+application.register_blueprint(main_routes)
+application.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
+application.config['SECRET_KEY'] = 'shopez-secret'
+
+db.init_app(application)
+
+if __name__ == '__main__':
+    with application.app_context():
+        db.create_all()
+    application.run(debug=True)
