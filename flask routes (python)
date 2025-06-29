@@ -1,0 +1,39 @@
+🔁 Flask Routes (routes.py)
+from flask import render_template, redirect, url_for, request, session
+from .models import db, Product, User, CartItem
+from flask import Blueprint
+
+app = Blueprint('main', __name__)
+
+@app.route('/')
+def index():
+    products = Product.query.all()
+    return render_template('index.html', products=products)
+
+@app.route('/product/<int:product_id>')
+def product_detail(product_id):
+    product = Product.query.get_or_404(product_id)
+    return render_template('product.html', product=product)
+
+@app.route('/add_to_cart/<int:product_id>')
+def add_to_cart(product_id):
+    user_id = session.get('user_id')
+    if not user_id:
+        return redirect(url_for('main.login'))
+    
+    item = CartItem.query.filter_by(user_id=user_id, product_id=product_id).first()
+    if item:
+        item.quantity += 1
+    else:
+        item = CartItem(product_id=product_id, user_id=user_id, quantity=1)
+        db.session.add(item)
+    db.session.commit()
+    return redirect(url_for('main.view_cart'))
+
+@app.route('/cart')
+def view_cart():
+    user_id = session.get('user_id')
+    if not user_id:
+        return redirect(url_for('main.login'))
+    items = CartItem.query.filter_by(user_id=user_id).all()
+    return render_template('cart.html', items=items)
